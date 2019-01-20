@@ -13,7 +13,7 @@ function resolve (dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: './client/main.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -78,6 +78,11 @@ module.exports = {
           },
           'stylus-loader'
         ]
+      },
+      {
+        test:/\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       }
     ]
   },
