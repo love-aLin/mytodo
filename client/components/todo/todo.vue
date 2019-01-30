@@ -8,13 +8,13 @@
       @keyup.enter="addTodo"
     >
     <item :todo="todo"
-    v-for="todo in todosFiter"
-    :key="todo.id"
-    @del="deleteTodo"></item>
+          v-for="todo in todosFiter"
+          :key="todo.id"
+          @del="deleteTodo"></item>
     <tabs :filter="filter"
-           :todos = "todos"
-           @toggle = "toggleFilter"
-           @clearAll = "clearAllCompleted">
+          :todos="todos"
+          @toggle="toggleFilter"
+          @clearAll="clearAllCompleted">
     </tabs>
   </section>
 </template>
@@ -22,61 +22,63 @@
 <script>
   import Item from './item.vue'
   import Tabs from './tabs.vue'
+
   let id = 0;
-    export default {
-    data(){
-      return{
-        todos:[],
+  export default {
+    data() {
+      return {
+        todos: [],
         filter: "all"
       }
     },
-    components:{ Item, Tabs },
-      computed: {
-        todosFiter: function () {
-          if (this.filter === "all"){
-            return this.todos;
-          }
-          const completed = this.filter === 'completed';
-          return this.todos.filter(function (todo) {
-             return todo.completed === completed;
-          })
+    components: {Item, Tabs},
+    computed: {
+      todosFiter: function () {
+        if (this.filter === "all") {
+          return this.todos;
         }
+        const completed = this.filter === 'completed';
+        return this.todos.filter(function (todo) {
+          return todo.completed === completed;
+        })
+      }
+    },
+    methods: {
+      addTodo(e) {
+        this.todos.unshift({
+          id: id++,
+          content: e.target.value.trim(),
+          completed: false
+        });
+        e.target.value = '';
       },
-      methods: {
-        addTodo(e){
-          this.todos.unshift({
-            id: id++,
-            content: e.target.value.trim(),
-            completed: false
-          });
-          e.target.value = '';
-        },
-        deleteTodo(id){
-          let index = this.todos.findIndex(function (d) {
-            return d.id === id;
-          })
-          this.todos.splice(index, 1);
-        },
-        toggleFilter(state){
-          this.filter = state;
-        },
-        clearAllCompleted(){
-          this.todos = this.todos.filter(function (todo) {
-             return !todo.completed;
-          })
-        }
+      deleteTodo(id) {
+        let index = this.todos.findIndex(function (d) {
+          return d.id === id;
+        })
+        this.todos.splice(index, 1);
       },
-        name: "todo"
-    }
+      toggleFilter(state) {
+        this.filter = state;
+      },
+      clearAllCompleted() {
+        this.todos = this.todos.filter(function (todo) {
+          return !todo.completed;
+        })
+      }
+    },
+    name: "todo"
+  }
 </script>
 
 <style lang="stylus" scoped>
-  .real-app{
+  .real-app {
     width 600px
     margin 0 auto
     box-shadow 0 0 5px #666
   }
-  .add-input{
+
+  .add-input {
     position: relative;
     margin: 0;
     width: 100%;
@@ -94,8 +96,9 @@
     font-smoothing: antialiased;
     padding: 16px 16px 16px 60px;
     border: none;
-    box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+    box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
   }
+
   .tab-container {
     background-color #fff
     padding 0 15px

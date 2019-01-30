@@ -11,43 +11,43 @@
 </template>
 
 <script>
-    export default {
-      props:{
-        filter:{
-          type: String,
-          required: true,
-        },
-        todos: {
+  export default {
+    props: {
+      filter: {
+        type: String,
+        required: true,
+      },
+      todos: {
         type: Array,
         required: true
       }
+    },
+    computed: {
+      unFinshTodoLength: function () {
+        return this.todos.filter(function (todo) {
+          return !todo.completed;
+        }).length
+      }
+    },
+    data() {
+      return {
+        states: ['all', 'active', 'completed']
+      }
+    },
+    methods: {
+      toggleFilter(state) {
+        this.$emit('toggle', state);
       },
-      computed:{
-        unFinshTodoLength: function () {
-          return this.todos.filter(function (todo) {
-            return !todo.completed;
-          }).length
-        }
-      },
-      data(){
-        return {
-          states: ['all', 'active', 'completed']
-        }
-      },
-      methods:{
-        toggleFilter(state){
-          this.$emit('toggle', state);
-        },
-        clearAllCompleted(){
-          this.$emit('clearAll');
-        }
-      },
-        name: "tabs"
-    }
+      clearAllCompleted() {
+        this.$emit('clearAll');
+      }
+    },
+    name: "tabs"
+  }
 </script>
 
 <style lang="stylus" scoped>
-  .helper{
+  .helper {
     font-weight 100
     display flex
     justify-content space-between
@@ -57,31 +57,38 @@
     font-size 14px
     font-smoothing: antialiased
   }
-  .left, .clear, .tabs{
+
+  .left, .clear, .tabs {
     padding 0 10px
     box-sizing border-box
   }
-  .left, .clear{
+
+  .left, .clear {
     width 150px
   }
-  .left{
+
+  .left {
     text-align left
   }
-  .clear{
+
+  .clear {
     text-align right
     cursor pointer
   }
-  .tabs{
+
+  .tabs {
     width 200px
     display flex
     justify-content space-around
+
     * {
       display inline-block
       padding 0 10px
       cursor pointer
-      border 1px solid rgba(175,47,47,0)
-      &.actived{
-        border-color rgba(175,47,47,0.4)
+      border 1px solid rgba(175, 47, 47, 0)
+
+      &.actived {
+        border-color rgba(175, 47, 47, 0.4)
         border-radius 5px
       }
     }

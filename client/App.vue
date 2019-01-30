@@ -9,24 +9,26 @@
 </template>
 
 <script>
-import Header from './layout/header.vue'
-import Todo from './components/todo/todo.vue'
-import Footer from './layout/footer.js'
-export default {
-  name: 'App',
-  components: {Header, Footer, Todo}
-}
+  import Header from './layout/header.vue'
+  import Todo from './components/todo/todo.vue'
+  import Footer from './layout/footer.js'
+
+  export default {
+    name: 'App',
+    components: {Header, Footer, Todo}
+  }
 </script>
 
 <style scoped>
-  #app{
+  #app {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
   }
-  #cover{
+
+  #cover {
     position: absolute;
     left: 0;
     top: 0;
